@@ -1,0 +1,38 @@
+<html>
+<body>
+<h4>Step 1</h4>
+in policy.service.api
+backup pom.xml.
+Edit pom as follows
+<script src="https://gist.github.com/dileeph/dd31b16bfdcd627efafc22c4b55db742.js"></script>
+Delete MANIFEST.MF file (or rename it to MANIFEST2.MF for backup)
+==========================
+<h4>Step 2</h4>
+in policy.client
+update pom file with segments from below:
+<script src="https://gist.github.com/dileeph/c17c4e76386b28a438e1728025211a4f.js"></script>
+
+Note that the package type has changed from jar to bundle.
+
+Delete MANIFEST.MF file (or rename it to MANIFEST2.MF for backup)
+
+===============================
+<h4>Step 3</h4>
+in policy.service.a
+
+update pom file with segments from below:
+<script src="https://gist.github.com/dileeph/6e5181e17197bc06fd239480e86f0ead.js"></script>
+
+Delete MANIFEST.MF file (or rename it to MANIFEST2.MF for backup)
+
+
+===============================
+<h4>Step 4</h4>
+restart container with clean command.
+
+try installing and starting policy.client and policy.service.a
+it will work without api being present.
+unzip and see contents of the service.a jar file.
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<html>
+</body>
+</br>
+<h3>Step 1</h3>
+</br>
+Create 3 maven projects non-osgi-dep-depth1, non-osgi-dep-depth2, non-osgi-dep-depth3</br>
+pom for depth1:</br>
+<script src="https://gist.github.com/dileeph/53d0273ea434404357f80865b263aea6.js"></script></br>
+pom for depth2:</br>
+<script src="https://gist.github.com/dileeph/237a46cd6ef975a7b7ebc612a6c4a4f7.js"></script></br>
+pom for depth3:</br>
+<script src="https://gist.github.com/dileeph/1553ec9c2c9da1a12ba0f5fa7a1565ab.js"></script></br>
+</br>
+Create classes com.y.d1.Depth1 in non-osgi-dep-depth1</br>
+com.y.d2.Depth2 in non-osgi-dep-depth2 and com.y.d3.Depth3 in non-osgi-dep-depth3.</br>
+Source code for all three below:</br>
+<script src="https://gist.github.com/dileeph/38181fe0684a061ba7665e55561b9cee.js"></script></br>
+</br>
+maven install with depth3 first, depth2 next and depth1 last.</br>
+</br>
+<h3>Step 2</h3></br>
+</br>
+Copy ds.policy.service.a into ds.policy.service.withdep</br>
+Edit pom and rename artifact id and name correctly.</br>
+Update component.xml name also from eclipse editor.</br>
+</br>
+Add non-osgi-dep-depth1 as a dependency.</br>
+</br>
+Also modify the code for PolicyServiceImpl.</br>
+<script src="https://gist.github.com/dileeph/09dd707b86ce49e2d3c3874268ff57d3.js"></script></br>
+</br>
+<h3>Step 3</h3></br>
+</br>
+build and deploy ds.policy.service.withdep in felix or equinox and see if it works.</br>
+</br>
+<h3>Step 4</h3></br>
+Insert following tag below &lt;Export-Package&gt; tag.</br>
+</br>
+&lt;Embed-Dependency&gt;*;scope=compile|runtime&lt;/Embed-Dependency&gt;</br>
+</br>
+build and deploy and see if it works.</br>
+</br>
+Add following tag below Embed-Dependency tag.</br>
+&lt;Embed-Transitive&gt;true&lt;/Embed-Transitive&gt;</br>
+</br>
+<h3>Step 5</h3></br>
+</br>
+&lt;Embed-Dependency&gt;*;scope=compile|runtime;inline=true&lt;/Embed-Dependency&gt;</br>
+</br>
+<h3>Step 6</h3></br>
+&lt;Embed-Dependency&gt;*;scope=compile|runtime;artifactId=!org.osgi.core|ds.policy.service.api;inline=true&lt;/Embed-Dependency&gt;</br>
+
+</br>
+</br>
+
+
+
+</body>
+</html>

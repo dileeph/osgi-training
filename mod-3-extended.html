@@ -1,0 +1,42 @@
+<html>
+<body>
+<h3>Step 1 </h3>
+Copy ds.policy.service.a and create .b and .c.</br>
+Make sure pom.xml - artifact id and name are updated.</br>
+Make sure pom has export for api package.</br>
+</br>
+OSGI-INF/component.xml must be edited from the eclipse editor view rather than source view.</br>
+For policy.service.a only make immediate="false"</br>
+<h3> Step 2</h3>
+Update client code.</br>
+Move sysout for printing service name from activate to addPolicyService.</br>
+Comment out the sysout in activate method.</br>
+</br>
+<h3> Step 3</h3>
+Clean existing deployments of policy bundles (client and services)</br>
+Deploy and start service.a first.</br>
+Deploy and start client - it should print to output on a</br>
+Deploy and start b and c - all those should now be picked up by client</br>
+</br>
+<h3>Step 4</h4>
+Change to static and deploy.</br>
+</br>
+</br>
+<h3>Step 5 </h4>
+</br>
+Filtering in declarative services</br>
+ </br>
+In Service A, B and C go to OSGI-INF/component.xml </br>
+Add line &lt;property name="Insurer" type="String" value="A"/&gt;</br>
+(modify B and C appropriately)</br>
+</br>
+In policy.client add </br>
+ <code></br>
+ target="(Insurer=A)"</br>
+ </code></br>
+ to &lt; reference ... &gt; tag.</br>
+</br>
+</br>
+
+</body>
+</html>

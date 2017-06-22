@@ -1,0 +1,53 @@
+<html>
+<body>
+<h4>Step 1 </h4>
+
+Copy policy.service.api, policy.service.a and policy.client into ds.policy.service.api, ds.policy.service.a and ds.policy.client.</br>
+</br>
+==================</br>
+<h4>Step 2 </h4>
+<h5>Updating pom files</h5>
+</br>
+Ensure the artifactid and name in pom.xml is updated.</br>
+</br>
+Also in all the poms, replace </br>
+<code>
+	&lt;Bundle-Activator&gt;com.x.policy.Activator&lt;/Bundle-Activator&gt;
+</code>
+with</br>
+<code>
+	&lt;Service-Component&gt;OSGI-INF/component.xml&lt;/Service-Component&gt;
+</code>
+</br>
+Within pom of ds.policy.service.a and ds.policy.client, replace dependency on policy.service.api with ds.policy.service.api </br>
+</br>
+===========================</br>
+<h4>Step 3 </h4>
+Delete the Activator class from the three projects.</br>
+</br>
+Add a directory OSGI-INF within src/main/resources and add component.xml in each of the projects.</br>
+</br>
+For API project (ds.policy.service.api):</br>
+<script src="https://gist.github.com/dileeph/6592d42bff34164f9c67e4ec7fbc4a66.js"></script>
+</br>
+For Implementation project (ds.policy.service.a)</br>
+<script src="https://gist.github.com/dileeph/4e4cd5f609e55d965ff6d7658efede3c.js"></script>
+
+For Client project (ds.policy.client)
+<script src="https://gist.github.com/dileeph/cb784a25725b138177f43094adecb15a.js"></script>
+</br>
+In client project add a new class </br>
+<code>
+com.x.policy.client.PolicyServiceClient
+</code></br>
+Implementation as below:</br>
+<script src="https://gist.github.com/dileeph/6451f0222c35481f59a0443fdf6d1321.js"></script>
+</br>
+==============================================</br>
+<h4>Step 4</h4></br>
+mvn clean install api, service and client in that order.</br>
+deploy service and client to the container and start them (api not needed)</br>
+</br>
+
+</body>
+</html>

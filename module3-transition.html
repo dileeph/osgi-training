@@ -1,0 +1,134 @@
+<html>
+<body>
+<h4>Step 1</h4>
+create project policy.service.api</br>
+</br>
+copy the policy service interface into com.x.policy.service.api</br>
+Make sure it has the following methods</br>
+</br>
+<code>
+	public boolean verifyPolicy(String policyNumber);
+	public String getName();
+</code>
+</br>
+copy Activator - remove service registration</br>
+</br>
+make sure Manifest is as below</br>
+<script src="https://gist.github.com/dileeph/d08ec469ac13e0adecb32f745ac89f3f.js"></script>
+</br>
+make sure pom is as below</br>
+<script src="https://gist.github.com/dileeph/0a94a7635ec39a1cee3b83c54bacf05a.js"></script>
+</br>
+mvn clean install</br>
+</br>
+=============</br>
+<h4>Step 2</h4>
+copy paste policy-client project into policy.client</br>
+update pom artifactid and name to policy.client</br>
+version as 1.0.0</br>
+</br>
+change dependency to policy.service.api with version 1.0.0</br>
+<script src="https://gist.github.com/dileeph/1a55f6f0bbb209b68265722c62ebf2f0.js"></script></br>
+</br>
+Client code Activator.start method as below</br>
+<script src="https://gist.github.com/dileeph/61e13152fe458efc83d993d3ad4b5355.js"></script>
+</br>
+Manifest as below</br>
+<script src="https://gist.github.com/dileeph/56336c2f6a435e340a3d8fc03011ac32.js"></script>
+</br>
+</br>
+</br>
+mvn clean install</br>
+===================</br>
+<h4>Step 3</h4>
+restart equinox & felix with -clean argument</br>
+install client and try to start it. is it working?</br>
+install api and try to start it</br>
+now try to start client again. is it working?</br>
+type bundle <x> for api. See version of exported package.</br>
+now lets correct (version="1.0.0") and install</br>
+</br>
+uninstall api - mvn clean install and install into equinox again.</br>
+start api, start client</br>
+===============================</br>
+<h4>Step 4</h4>
+Copy policy-service into policy.service.a</br>
+Update pom artifact id and name to policy.service.a</br>
+version to 1.0.0</br>
+</br>
+modify dependency to policy.service.api with version 1.0.0 in pom.</br>
+<script src="https://gist.github.com/dileeph/9b3c8ab13d45efea9fb702d2e907a3a5.js"></script>
+</br>
+<code>
+import com.x.policy.service.api.PolicyService in PolicyServiceImpl.</br>
+</code>
+</br>
+Ensure method is present:
+<code>
+	public String getName(){
+		return "policy-1.0";
+	}
+	</code>
+Update MANIFEST.MF as below:</br>
+<script src="https://gist.github.com/dileeph/b100eb759cbcba5ab280278726beef0f.js"></script>
+</br>
+mvn clean install</br>
+</br>
+install in containers</br>
+</br>
+start policy.service.a.</br> 
+stop client and start again. client should locate this service.</br>
+===========================================================</br>
+<h4>Step 5</h4>
+even after stopping api it will still work. uninstalling api - still working.</br>
+so packages are left around even after unistalling</br>
+</br>
+restart containers with -clean.</br>
+now try installing and starting policy.client and policy.service.a</br>
+======================================================</br>
+<h4>Step 6</h4>
+increase pom.xml version of api bundle to 2.0.0.</br>
+mvn clean install</br>
+install bundle into container.</br>
+see what happens.</br>
+</br>
+======================================================</br>
+<h4>Step 7</h4>
+restart containers with -clean.</br>
+now try installing and starting policy.client and policy.service.a</br>
+</br>
+increase Bundle-Version in MANIFEST to 2.0.0</br>
+mvn clean install</br>
+uninstall api bundle and install again.</br>
+Stop& start client, service.a etc to see if there is an impact.</br>
+</br>
+===================================================</br>
+<h4>Step 8</h4>
+restart containers with -clean.</br>
+now try installing and starting policy.client and policy.service.a</br>
+</br>
+increase Export-Package version in MANIFEST to 2.0.0</br>
+mvn clean install</br>
+uninstall api bundle and install again.</br>
+Stop& start client, service.a etc to see if there is an impact.</br>
+</br>
+No impact on bundles because service.a has 1.0.0 -> infinity</br>
+</br>
+============================================================</br>
+<h4>Step 9</h4>
+restart containers with -clean.</br>
+</br>
+Now edit MANIFEST of policy.service.a</br>
+Import-Package: org.osgi.framework, com.x.policy.service.api;version="[1.0,2)"</br>
+mvn clean install</br>
+</br>
+now try installing and starting policy.client and policy.service.a</br>
+</br>
+install api bundle v2.0.0 and start.</br>
+</br>
+Are the client and services getting picked up?</br>
+</br>
+==================================================</br>
+
+</body>
+</html>

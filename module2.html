@@ -1,0 +1,75 @@
+<html>
+<body>
+
+<p>
+First OSGi service
+<ul>
+	<li>Adding a service to a bundle</li>
+	<li> Multiple implementations of a single service</li>
+	<li> Filtering service implementations</li>
+</ul>
+</p>
+Create simple jar file using maven. </br>
+mvn archetype:generate -Dfilter=quickstart </br>
+ </br> </br>
+
+In eclipse - New > Project > Maven Project > Next > maven-archetype-quickstart > policy.service --- change version number to 1.0.0 </br>
+ </br>
+New source folder - src/main/resources </br>
+ </br>
+Copy contents to META-INF </br>
+Copy contents to pom </br>
+ </br>
+com.x.policy.Activator </br>
+ </br>
+Create com.x.policy.service.PolicyService </br>
+com.x.policy.service.impl.PolicyServiceImpl </br>
+ </br>
+Export-Package:com.x.policy.service </br>
+ </br>
+Create policy service with verifyPolicy method. </br>
+ </br>
+<script src="https://gist.github.com/dileeph/ac95bde2f095627028277bdb504c81ad.js"></script>
+ </br>
+NOTE!! Remember the space after "colon" </br>
+Export-Package: com.x.policy.service </br>
+ </br>
+install file:/<path>/policy-service-1.0.0.jar </br>
+ </br>
+=============================================== </br>
+ </br>
+Second OSGi Service </br>
+<ul>
+	<li> Service implementation that uses a service definition from another bundle</li>
+	 <li> Importing from another bundle</li>
+</ul>
+Copy and create policy-service-b</br>
+	</br>
+Edit pom, MANIFEST and Activator</br>
+props.put("Insurer", "B");</br>
+</br>
+<artifactId>policy-service-b</artifactId></br>
+</br>
+<dependency></br>
+			<groupId>com.x</groupId></br>
+			<artifactId>policy-service</artifactId></br>
+			<version>1.0.0</version></br>
+		</dependency></br>
+</br>
+</br>
+====================================================</br>
+</br>
+Service Client</br>
+	Ø Applying filter to choose service provider</br>
+	</br>
+</br>
+Copy pom - similar to service-b</br>
+</br>
+MANIFEST</br>
+Import-Package: org.osgi.framework, com.x.policy.service</br></br>
+No export</br>
+</br>
+<script src="https://gist.github.com/dileeph/a43635b6d1d607b736e7f85b3e043885.js"></script>
+</br>
+</body>
+</html>
